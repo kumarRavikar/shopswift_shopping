@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { UseProductContext } from "./contex/productContext";
+//import { UseProductContext } from "./contex/productContext";
 import PageNavigation from "./components/PageNavigation";
 import styles from "../src/styles/SingleProduct.module.css";
 import PriceFormate from "./components/PriceFormate";
@@ -9,19 +9,20 @@ import { MdOutlineSecurity } from "react-icons/md";
 import MyImages from "./components/MyImages";
 import Stars from "./components/Stars";
 import AddToCart from "./components/AddToCart";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSingleProduct } from "./redux/productSlice";
 const API = "https://fakestoreapi.com/products";
 
 export const SingleProduct = () => {
   const { id } = useParams();
-  const { singleProduct, isSingleLoading, getSingleProduct } =
-    UseProductContext();
-
+  const { singleProduct, isSingleLoading } = useSelector((state)=>state.product)
+  const dispatch = useDispatch()
   const {  title, description, price, rating, stock } =
     singleProduct;
 
   useEffect(() => {
-    getSingleProduct(`${API}/${id}`);
-  }, [id]);
+   dispatch( fetchSingleProduct(`${API}/${id}`));
+  }, [dispatch,id]);
 
   if (isSingleLoading) {
     return <div className={styles.loader}>Loading product details...</div>;

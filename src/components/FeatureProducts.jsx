@@ -1,9 +1,11 @@
 import React from 'react'
-import { UseProductContext } from '../contex/productContext'
 import Product from './Product';
 import styles from "../styles/FeatureProducts.module.css"
+import {useSelector } from 'react-redux';
+
 const FeatureProducts = () => {
-    const {isLoading, featuredProducts} = UseProductContext();
+    const {isLoading,featuredProducts} = useSelector((state)=>state.product)
+   
      if(isLoading){
         return <div className={styles.loading}> ...LOADING </div>
      }

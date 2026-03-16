@@ -1,0 +1,73 @@
+.container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#667eea,#764ba2,#ff758c);
+  background-size:300% 300%;
+  animation: gradientMove 8s ease infinite;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@keyframes gradientMove{
+  0%{
+    background-position:0% 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+  100%{
+    background-position:0% 50%;
+  }
+}
+
+.card{
+  width:380px;
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  color:white;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.25);
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform: translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+.title{
+  font-size:26px;
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+.status{
+  margin-top:15px;
+  font-size:15px;
+  opacity:0.9;
+}
+
+.loader{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,0.3);
+  border-top:4px solid white;
+  margin:0 auto 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform: rotate(360deg);
+  }
+}

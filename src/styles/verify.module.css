@@ -1,0 +1,74 @@
+.container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: linear-gradient(135deg,#667eea,#764ba2,#ff758c);
+  background-size:400% 400%;
+  animation: gradientMove 10s ease infinite;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@keyframes gradientMove{
+  0%{
+    background-position:0% 50%;
+  }
+  50%{
+    background-position:100% 50%;
+  }
+  100%{
+    background-position:0% 50%;
+  }
+}
+
+.card{
+  width:400px;
+  padding:40px;
+  border-radius:20px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  box-shadow:0 15px 35px rgba(0,0,0,0.25);
+  text-align:center;
+  color:white;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform: translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
+}
+
+.title{
+  font-size:28px;
+  margin-bottom:15px;
+  font-weight:600;
+}
+
+.text{
+  font-size:15px;
+  margin-bottom:25px;
+  line-height:1.5;
+  opacity:0.9;
+}
+
+/* .button{
+  padding:12px 22px;
+  border:none;
+  border-radius:8px;
+  background: linear-gradient(45deg,#ff758c,#ff7eb3);
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+
+.button:hover{
+  transform: translateY(-2px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+} */

@@ -37,15 +37,9 @@ console.log("Auth0 State:", {
         <NavLink to="/products" className={styles.link} onClick={closeMenu}>
           Products
         </NavLink>
-         {
-          isAuthenticated && <p className={styles.link} >{user.name}</p>
-         }
-        {
-          isAuthenticated?(  <button className={styles.btn} onClick={()=>logout({  logoutParams: {
-            returnTo: window.location.origin
-          }})}>LogOut</button>):
-          (<button className={styles.btn} onClick={()=>loginWithRedirect()}>LogIn</button>)
-        }
+       <NavLink to="/signup" className={styles.link} onClick={closeMenu}>
+          LogIn
+        </NavLink>
         
         
         <NavLink to="/cart" className={styles.link} onClick={closeMenu}>

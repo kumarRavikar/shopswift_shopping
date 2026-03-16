@@ -9,9 +9,12 @@ import { ErrorPage } from "./ErrorPage"
 import Header from "./components/Header"
 import Cart from "./Cart"
 import Footer from "./components/Footer"
+import SignUp from "./components/SignUp"
+import Login from "./components/Login"
+import Verify from "./components/Verify"
+import VerifyEmail from "./components/VerifyEmail"
 function App() {
-  console.log("DOMAIN:", import.meta.env.VITE_AUTH0_DOMAIN);
-console.log("CLIENT:", import.meta.env.VITE_AUTH0_CLIENT_ID);
+  
 
  const router = createBrowserRouter([
   {path:"/",element:<Header/>, errorElement:<ErrorPage/>,children:[
@@ -21,7 +24,11 @@ console.log("CLIENT:", import.meta.env.VITE_AUTH0_CLIENT_ID);
   {path:"/products", element:<Products/>},
   {path:"/products/:id", element:<SingleProduct/>},
   {path:"/cart", element:<Cart/>}
-  ]}
+  ]},
+  {path:"/signup", element:<SignUp/>},
+  {path:"/verify", element:<Verify/>},
+  {path:"/verify/:token", element:<VerifyEmail/>},
+  {path:"/login", element:<Login/>}
  ])
   return(<><RouterProvider router={router}/> <Footer/></> )
 }
