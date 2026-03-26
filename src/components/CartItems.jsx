@@ -2,11 +2,12 @@ import React from "react";
 import styles from "../styles/CartItems.module.css";
 import { FaTrash } from "react-icons/fa";
 import PriceFormate from "./PriceFormate";
-import { useAddToCartContext } from "../contex/AddToCartContext";
 import CartAmount from "./CartAmount";
+import { useDispatch } from "react-redux";
+import { decQuentity, incQuantity, removeProduct } from "../redux/AddToCartSlice";
 
 const CartItems = ({ id, name, image,  price, amount }) => {
-  const {removeProduct, setDecrement, setIncrement} = useAddToCartContext();
+   const dispatch = useDispatch();
   return (
     <div className={styles.cartRow}>
       
@@ -21,14 +22,14 @@ const CartItems = ({ id, name, image,  price, amount }) => {
       <p className={styles.center}><PriceFormate price={price}/></p>
 
       {/* Quantity */}
-      <p className={styles.center}><CartAmount amount={amount} descAmount={()=>setDecrement(id)} incAmount={()=>setIncrement(id)}/></p>
+      <p className={styles.center}><CartAmount amount={amount} descAmount={()=>dispatch(decQuentity(id))} incAmount={()=>dispatch(incQuantity(id))}/></p>
 
       {/* Subtotal */}
       <p className={styles.center}><PriceFormate price={price * amount}/></p>
 
       {/* Remove */}
       <button className={styles.removeBtn}>
-        <FaTrash onClick={()=>removeProduct(id)}/>
+        <FaTrash onClick={()=>dispatch(removeProduct(id))}/>
       </button>
       
     </div>

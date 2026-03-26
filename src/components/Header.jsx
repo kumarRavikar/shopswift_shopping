@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import logo from "../assets/Photo/logo.png"
 import Nav from './Nav'
 import styles from '../styles/Header.module.css'
-import { UseProductContext } from '../contex/productContext'
+//import { UseProductContext } from '../contex/productContext'
 const Header = () => {
 
   return (

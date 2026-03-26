@@ -3,20 +3,30 @@ import { NavLink } from 'react-router-dom'
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenuMotion,CgClose  } from "react-icons/cg";
 import styles from "../styles/Nav.module.css";
-import { useAddToCartContext } from '../contex/AddToCartContext';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { setUser } from '../redux/userSlice';
 const Nav = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = () => setMenuOpen(false);
-  const {total_items} = useAddToCartContext();
-  const {user,loginWithRedirect,logout,isAuthenticated,isLoading} = useAuth0();
-  if (isLoading) {
-  return null;
-}
-console.log("Auth0 State:", {
-  isAuthenticated,
-  user
-});
+  const {total_items} = useSelector((state)=>state.addToCart);
+  const accessToken = localStorage.getItem('accessToken')
+  const dispatch = useDispatch()
+  const {user} = useSelector((state)=>state.user)
+     const logOutHandler = async()=>{
+      try {
+         const res = await axios.post(`http://localhost:5000/api/user/logout`,{},{
+          headers:{
+            Authorization: `Bearer ${accessToken}`
+          }
+         })
+         if(res.data.success){
+            dispatch(setUser(null))
+         }
+      } catch (error) {
+         console.log("from logOut:",error)
+      }
+     }
   return (
    <>
    <nav className={styles.nav}>
@@ -37,9 +47,9 @@ console.log("Auth0 State:", {
         <NavLink to="/products" className={styles.link} onClick={closeMenu}>
           Products
         </NavLink>
-       <NavLink to="/signup" className={styles.link} onClick={closeMenu}>
-          LogIn
-        </NavLink>
+        {
+          user && (<NavLink to={`/profile/${user._id}`} onClick={closeMenu} className={styles.link}> Welcome {user.firstName}</NavLink>)
+        }
         
         
         <NavLink to="/cart" className={styles.link} onClick={closeMenu}>
@@ -50,6 +60,12 @@ console.log("Auth0 State:", {
            
           </div>
         </NavLink>
+        {
+          user ? <NavLink onClick={logOutHandler} className={styles.link}>LogOut</NavLink>:
+          <NavLink to="/login" className={styles.link} onClick={closeMenu}>
+          LogIn
+        </NavLink>
+        }
       </div>
 
       {/* Menu Button (mobile only) */}

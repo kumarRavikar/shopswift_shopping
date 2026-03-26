@@ -1,13 +1,16 @@
-import React from "react";
-import { useAddToCartContext } from "./contex/AddToCartContext";
+import React, { useEffect } from "react";
+//import { useAddToCartContext } from "./contex/AddToCartContext";
 import CartItems from "./components/CartItems";
 import styles from "./styles/Cart.module.css";
 import { NavLink } from "react-router-dom";
 import PriceFormate from "./components/PriceFormate";
-import { useAuth0 } from "@auth0/auth0-react";
+//import { useAuth0 } from "@auth0/auth0-react";
+import {useDispatch, useSelector} from 'react-redux'
+import { clearCart, totalAmount } from "./redux/AddToCartSlice";
 const Cart = () => {
-  const { cart, clearCart, total_amount, shipping_fee } = useAddToCartContext();
-  const { user, isAuthenticated } = useAuth0();
+  const { cart, total_amount, shipping_fee } = useSelector((state)=>state.addToCart);
+  const dispatch = useDispatch()
+  //const { user, isAuthenticated } = useAuth0();
   if (cart.length === 0) {
     return (
       <div className={styles.emptyCart}>
@@ -20,11 +23,18 @@ const Cart = () => {
       </div>
     );
   }
+  useEffect(()=>{
+    localStorage.setItem('cartItems',JSON.stringify(cart))
+  },[cart])
+  useEffect(()=>{
+    dispatch(totalAmount())
+  },[dispatch, cart])
+
   return (
     <>
       <div className={styles.cartContainer}>
         {/* Header */}
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <div className={styles.userCard}>
             <img src={user.profile} alt={user.name} className={styles.userImage} />
             <p className={styles.username}>{user.name}</p>
@@ -33,7 +43,7 @@ const Cart = () => {
           <div className="guestCard">
             <p>User has not logged in yet</p>
           </div>
-        )}
+        )} */}
 
         <div className={styles.cartHeader}>
           <p>Item</p>
@@ -57,7 +67,7 @@ const Cart = () => {
             <button className={styles.continueBtn}>Continue Shopping</button>
           </NavLink>
 
-          <button className={styles.clearBtn} onClick={clearCart}>
+          <button className={styles.clearBtn} onClick={()=>dispatch(clearCart())}>
             Clear Cart
           </button>
         </div>

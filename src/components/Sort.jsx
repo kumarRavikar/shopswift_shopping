@@ -2,30 +2,30 @@ import React from "react";
 import styles from "../styles/Sort.module.css";
 import { BsGridFill } from "react-icons/bs";
 import { FaThList } from "react-icons/fa";
-import { useFilterContext } from "../contex/FilterProductContext";
+//import { useFilterContext } from "../contex/FilterProductContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setGridView, setListView, setSortingValue } from "../redux/filterSlice";
 
 const Sort = () => {
   const {
     filter_product,
     grid_view,
-    setGridview,
-    setListView,
-    sorting
-  } = useFilterContext();
-
+    sorting_value
+  } = useSelector((state)=>state.filterProduct);
+  const dispatch = useDispatch()
   return (
     <div className={styles.sort_container}>
       <div className={styles.btn}>
         <button
           className={grid_view ? "" : styles.active}
-          onClick={setGridview}
+          onClick={()=>dispatch(setGridView())}
         >
           <BsGridFill />
         </button>
 
         <button
           className={!grid_view ?  "":styles.active }
-          onClick={setListView}
+          onClick={()=>dispatch(setListView())}
         >
           <FaThList />
         </button>
@@ -35,7 +35,7 @@ const Sort = () => {
         {filter_product.length} Products
       </div>
 
-      <select className={styles.price_dropdown} onChange={sorting}>
+      <select className={styles.price_dropdown} value={sorting_value} onChange={(e)=>dispatch(setSortingValue(e.target.value))}>
         <option value="lowest">Price (Low to High)</option>
         <option value="highest">Price (High to Low)</option>
         <option value="a-z">Name A → Z</option>

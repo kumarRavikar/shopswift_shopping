@@ -1,17 +1,41 @@
-import React from "react";
-import { useFilterContext } from "../contex/FilterProductContext";
+import React, { useEffect } from "react";
+//import { useFilterContext } from "../contex/FilterProductContext";
 import styles from "../styles/FilterSection.module.css";
 import PriceFormate from "./PriceFormate";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearFilters,
+  filterProducts,
+  loadFilterProduct,
+  sortProducts,
+  updateFilterValue,
+} from "../redux/filterSlice";
 const FilterSection = () => {
+  const dispatch = useDispatch();
   const {
     filters: { text, category, price, maxPrice, minPrice },
-    updateFilterValu,
     all_products,
-    clearFilters,
-  } = useFilterContext();
-  const getUniqueData = (data, catego) => {
-    let newVal = data.map((curEle) => curEle[catego]);
-    return (newVal = ["All", ...new Set(newVal)]);
+    filters,
+    sorting_value,
+  } = useSelector((state) => state.filterProduct);
+  const { products } = useSelector((state) => state.product);
+
+  useEffect(() => {
+   if(products && products.length > 0){
+    dispatch(loadFilterProduct(products));
+  }
+  }, [products, dispatch]);
+
+  useEffect(() => {
+     if(all_products.length){
+    dispatch(filterProducts());
+    dispatch(sortProducts());
+  }
+  }, [text, category, price, sorting_value,all_products, dispatch]);
+
+  const getUniqueData = (data, property) => {
+    const  newVal = data.map((curEle) => curEle[property]);
+    return ["All", ...new Set(newVal)];
   };
   let uniqueData = getUniqueData(all_products, "category");
 
@@ -24,7 +48,14 @@ const FilterSection = () => {
               type="text"
               name="text"
               value={text}
-              onChange={updateFilterValu}
+              onChange={(e) =>
+                dispatch(
+                  updateFilterValue({
+                    name: e.target.name,
+                    value: e.target.value,
+                  }),
+                )
+              }
               className={styles.inputFild}
               placeholder="SEARCH"
             />
@@ -43,7 +74,10 @@ const FilterSection = () => {
               }
               name="category"
               value={currEle}
-              onClick={updateFilterValu}
+              onClick={(e)=>dispatch(updateFilterValue({
+                    name: e.target.name,
+                    value: e.target.value,
+                  }))}
             >
               {currEle}
             </button>
@@ -62,11 +96,17 @@ const FilterSection = () => {
             min={minPrice}
             max={maxPrice}
             value={price}
-            onChange={updateFilterValu}
+            onChange={(e) => dispatch(updateFilterValue({
+                    name: e.target.name,
+                    value: Number(e.target.value),
+                  }))}
           />
         </div>
         <div>
-          <button className={styles.clearBtn} onClick={clearFilters}>
+          <button
+            className={styles.clearBtn}
+            onClick={()=>dispatch(clearFilters())}
+          >
             Clear Filters
           </button>
         </div>

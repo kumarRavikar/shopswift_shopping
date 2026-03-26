@@ -1,8 +1,8 @@
 
 import styles from "../src/styles/Contact.module.css"
-import { useAuth0 } from "@auth0/auth0-react"
+//import { useAuth0 } from "@auth0/auth0-react"
 export const Contact = () => {
-  const {user, isAuthenticated } = useAuth0()
+  //const {user, isAuthenticated } = useAuth0()
   return (
     <section className={styles.contact}>
       <h1 className={styles.heading}>Contact Page</h1>
@@ -23,12 +23,12 @@ export const Contact = () => {
          placeholder="User Name" 
          name="userName" 
           autoComplete = 'off' 
-          value={isAuthenticated? user.name : " "}
+          
           required/>
           <input type="email" 
           name="email" 
           placeholder="Email"
-          value={isAuthenticated? user.email : " "} 
+           
           autoComplete="off" 
           required />
           <textarea name='Message' placeholder='Enter your Message' ></textarea>

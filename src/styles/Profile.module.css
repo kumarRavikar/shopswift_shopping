@@ -1,0 +1,126 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.toggleWrapper {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+
+.toggleBtn {
+  border: none;
+  padding: 10px 25px;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+  transition: 0.3s;
+}
+
+.active {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: black;
+  font-weight: bold;
+}
+
+.card {
+  width: 100%;
+  max-width: 520px;
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.fadeIn {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Image Section */
+.imageWrapper {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profileImg {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #2a5298;
+}
+
+.uploadBtn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #2a5298;
+}
+
+/* Disabled Email */
+.disabledInput {
+  background: #eee;
+  cursor: not-allowed;
+}
+
+/* Submit Button */
+.submitBtn {
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submitBtn:hover {
+  transform: translateY(-2px);
+}

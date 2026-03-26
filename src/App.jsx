@@ -13,9 +13,8 @@ import SignUp from "./components/SignUp"
 import Login from "./components/Login"
 import Verify from "./components/Verify"
 import VerifyEmail from "./components/VerifyEmail"
+import { Profile } from "./components/Profile"
 function App() {
-  
-
  const router = createBrowserRouter([
   {path:"/",element:<Header/>, errorElement:<ErrorPage/>,children:[
   {index:true , element:<Home/>},
@@ -28,7 +27,8 @@ function App() {
   {path:"/signup", element:<SignUp/>},
   {path:"/verify", element:<Verify/>},
   {path:"/verify/:token", element:<VerifyEmail/>},
-  {path:"/login", element:<Login/>}
+  {path:"/login", element:<Login/>},
+  {path:"/profile/:userId", element:<Profile/>}
  ])
   return(<><RouterProvider router={router}/> <Footer/></> )
 }

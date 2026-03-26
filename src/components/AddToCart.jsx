@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import styles from "../styles/AddToCart.module.css";
 import CartAmount from "./CartAmount";
 import { NavLink } from "react-router-dom";
-import { useAddToCartContext } from "../contex/AddToCartContext";
-
+//import { useAddToCartContext } from "../contex/AddToCartContext";
+import {useDispatch} from "react-redux"
+import { addToCart } from "../redux/AddToCartSlice";
 const AddToCart = ({ product }) => {
   const { id, colors = [], stock } = product;
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [amount, setAmount] = useState(1);
-  const {addToCart} = useAddToCartContext();
+  const dispatch = useDispatch()
   const incAmount =()=>{
      amount < stock ? setAmount( amount + 1) : setAmount(stock);
   }
@@ -43,7 +44,7 @@ const AddToCart = ({ product }) => {
         <button
         className={styles.addToCartBtn}
         disabled={stock <= 0}
-        onClick={()=>addToCart(id, colors,amount, product)}
+        onClick={()=>dispatch(addToCart({id, colors:selectedColor,amount, product}))}
       >
         {stock > 0 ? "Add to Cart" : "Out of Stock"}
       </button>

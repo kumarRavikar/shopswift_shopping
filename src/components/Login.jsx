@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "../styles/login.module.css";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice";
+import { useToast } from "../contex/ToastContext";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -12,6 +15,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [showpassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
+   const {showToast} = useToast()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -26,9 +31,12 @@ const Login = () => {
        const res = await axios.post("http://localhost:5000/api/user/login",formData)
        if(res.data.success){
           navigate("/")
+          dispatch(setUser(res.data.user))
+          localStorage.setItem('accessToken', res.data.accessToken)
        }
     } catch (error) {
        console.log(error)
+      showToast("Wrong Credintials","error")
     }finally{
      setLoading(false)
   }

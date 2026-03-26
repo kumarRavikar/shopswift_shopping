@@ -1,15 +1,16 @@
 import React from 'react'
-import { useFilterContext } from '../contex/FilterProductContext'
+//import { useFilterContext } from '../contex/FilterProductContext'
 import GridView from './GridView';
 import ListView from "./ListView"
+import { useSelector } from 'react-redux';
 const ProductList = () => {
-  const {filter_product, grid_view} = useFilterContext();
-  if(grid_view=== true){
-    return( <GridView products={filter_product}/>)
+  const {filter_product, grid_view} = useSelector((state)=>state.filterProduct);
+    if(grid_view){
+    return <GridView products={filter_product}/>
   }
-  if(grid_view === false){
-    return <ListView products={filter_product}/>
-  }
+
+  return <ListView products={filter_product}/>
+
 }
 
 export default ProductList
