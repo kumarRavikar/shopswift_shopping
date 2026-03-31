@@ -5,7 +5,7 @@ const PriceFormate = ({price}) => {
     style:'currency',
     currency:'INR',
     maximumFractionDigits:2,
-  }).format(price*10)
+  }).format(price)
 }
 
 export default PriceFormate

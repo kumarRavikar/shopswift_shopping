@@ -3,9 +3,11 @@ import Product from './Product';
 import styles from "../styles/FeatureProducts.module.css"
 import {useSelector } from 'react-redux';
 
+
 const FeatureProducts = () => {
     const {isLoading,featuredProducts} = useSelector((state)=>state.product)
-   
+     console.log("fetureProduct",featuredProducts);
+     
      if(isLoading){
         return <div className={styles.loading}> ...LOADING </div>
      }
@@ -18,7 +20,7 @@ const FeatureProducts = () => {
         <div className={styles.productGrid}>
           {featuredProducts.map((currProduct) => (
             <Product
-              key={currProduct.id}
+              key={currProduct._id}
               { ...currProduct }
             />
           ))}

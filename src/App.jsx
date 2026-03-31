@@ -21,7 +21,7 @@ function App() {
   {path:"/about", element:<About/>},
   {path:"/contact", element:<Contact/>},
   {path:"/products", element:<Products/>},
-  {path:"/products/:id", element:<SingleProduct/>},
+  {path:"/products/:_id", element:<SingleProduct/>},
   {path:"/cart", element:<Cart/>}
   ]},
   {path:"/signup", element:<SignUp/>},

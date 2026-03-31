@@ -13,9 +13,8 @@ import {
 const FilterSection = () => {
   const dispatch = useDispatch();
   const {
-    filters: { text, category, price, maxPrice, minPrice },
+    filters: { text, brand, category, price, maxPrice, minPrice },
     all_products,
-    filters,
     sorting_value,
   } = useSelector((state) => state.filterProduct);
   const { products } = useSelector((state) => state.product);
@@ -27,18 +26,23 @@ const FilterSection = () => {
   }, [products, dispatch]);
 
   useEffect(() => {
-     if(all_products.length){
+     if(!all_products?.length){
+         return
+     }
     dispatch(filterProducts());
     dispatch(sortProducts());
-  }
-  }, [text, category, price, sorting_value,all_products, dispatch]);
+  
+  }, [text, category,brand ,price, sorting_value,all_products, dispatch]);
 
   const getUniqueData = (data, property) => {
     const  newVal = data.map((curEle) => curEle[property]);
     return ["All", ...new Set(newVal)];
   };
-  let uniqueData = getUniqueData(all_products, "category");
-
+  let uniqueData = all_products?.length ? getUniqueData(all_products, "category"):[];
+  let getUniqueBrand =all_products?.length ? getUniqueData(all_products,"brand"):[];
+  if(all_products.length === 0){
+    return <h2>No product found</h2>
+  }
   return (
     <>
       <div className={styles.filterContainer}>
@@ -79,7 +83,29 @@ const FilterSection = () => {
                     value: e.target.value,
                   }))}
             >
-              {currEle}
+              {currEle.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <div className={styles.priceCategory}>
+          <h3>Brand</h3>
+          {getUniqueBrand.map((currEle) => (
+            <button
+              type="button"
+              key={currEle}
+              className={
+                brand === currEle
+                  ? `${styles.listItem} ${styles.active}`
+                  : styles.listItem
+              }
+              name="brand"
+              value={currEle}
+              onClick={(e)=>dispatch(updateFilterValue({
+                    name: e.target.name,
+                    value: e.target.value,
+                  }))}
+            >
+              {currEle.toUpperCase()}
             </button>
           ))}
         </div>

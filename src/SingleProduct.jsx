@@ -11,18 +11,18 @@ import Stars from "./components/Stars";
 import AddToCart from "./components/AddToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleProduct } from "./redux/productSlice";
-const API = "https://fakestoreapi.com/products";
+const SINGLE_API = "http://localhost:5000/api/products/singleproduct";
 
 export const SingleProduct = () => {
-  const { id } = useParams();
+  const { _id } = useParams();
   const { singleProduct, isSingleLoading } = useSelector((state)=>state.product)
   const dispatch = useDispatch()
-  const {  title, description, price, rating, stock } =
-    singleProduct;
+  const {  productName, productDesc, productImg , productPrice, rating, stock } =
+    singleProduct || {};
 
   useEffect(() => {
-   dispatch( fetchSingleProduct(`${API}/${id}`));
-  }, [dispatch,id]);
+   dispatch( fetchSingleProduct(`${SINGLE_API}/${_id}`));
+  }, [dispatch,_id]);
 
   if (isSingleLoading) {
     return <div className={styles.loader}>Loading product details...</div>;
@@ -30,28 +30,28 @@ export const SingleProduct = () => {
 
   return (
     <section className={styles.wrapper}>
-      <PageNavigation title={title} />
+      <PageNavigation title={productName} />
 
       <div className={styles.card}>
         <div className={styles.imageSection}>
-          {singleProduct.images && <MyImages images={singleProduct.images} />}
+          {productImg && <MyImages images={productImg} />}
         </div>
 
         <div className={styles.content}>
-          <h1 className={styles.title}>{title}</h1>
+          <h1 className={styles.title}>{productName}</h1>
 
           <div className={styles.meta}>
-            <Stars rating={rating}/>
+            <Stars rating={rating?.rate}/>
           </div>
 
           <div className={styles.divider} />
 
           <div className={styles.priceRow}>
             <del>
-              MRP: <PriceFormate price={price + 25000} />
+              MRP: <PriceFormate price={productPrice + 25000} />
             </del>
             <span className={styles.price}>
-              Deal of the day: <PriceFormate price={price} />
+              Deal of the day: <PriceFormate price={productPrice} />
             </span>
             <p
               className={`${styles.stock} ${
@@ -61,7 +61,7 @@ export const SingleProduct = () => {
               Availability:
               <span>{stock > 0 ? " In stock" : " Out of stock"}</span>
             </p>
-            <p className={styles.description}>{description}</p>
+            <p className={styles.description}>{productDesc}</p>
             <div className={styles.services}>
               <div className={styles.serviceItem}>
                 <TbTruckDelivery className={styles.icon} />

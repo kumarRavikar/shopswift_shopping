@@ -1,0 +1,40 @@
+.noProducts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     height: 90vh;
+}
+.noProductsBox{
+    align-items: center;
+    padding: 30px;
+    background: #ffff;
+    max-width: 500px;
+    width: 100%;
+}
+.noProductsImg{
+   font-size: 150px;
+  color: #ff4d4f;
+  margin-bottom: 20px;
+}
+.noProductsBox h2{
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+.noProductsBox p{
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+.resetBtn{
+    background: #ff4d4f;
+    color: #ffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+.resetBtn:hover{
+    background: #d9363e;
+}

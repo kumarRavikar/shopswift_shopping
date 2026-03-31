@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const API = "https://fakestoreapi.com/products";
+const API = "http://localhost:5000/api/products/all_products";
 const enhanceProduct = (product) => {
   return {
     ...product,
     stock: Math.floor(Math.random() * 10) + 1,
-    images: [
-      { id: 1, url: product.image },
-      { id: 2, url: product.image },
-      { id: 3, url: product.image },
-    ],
+    rating: {
+      rate: (Math.random() * (5 - 3) + 3).toFixed(1), // 3.0 to 5.0
+      count: Math.floor(Math.random() * 200) + 1, // 1–200 reviews
+    },
     colors: ["red", "blue", "green"],
   };
 };
@@ -26,14 +25,15 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const res = await axios.get(API);
-    return res.data.map(enhanceProduct);
+    console.log("API DATA:", res.data);
+    return res.data.products.map(enhanceProduct);
   },
 );
 export const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (url) => {
     const res = await axios.get(url);
-    return enhanceProduct(res.data);
+    return enhanceProduct(res.data.product);
   },
 );
 const productSlice = createSlice({
@@ -51,7 +51,7 @@ const productSlice = createSlice({
         state.products = action.payload;
 
         state.featuredProducts = action.payload.filter(
-          (item) => item.rating?.rate >= 4.5,
+          (item) => Number(item.productPrice) < 1000,
         );
 
         state.isError = false;

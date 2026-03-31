@@ -5,18 +5,18 @@ import styles from "../styles/ListView.module.css"
 const ListView = ({products}) => {
   return (
     <div className={styles.list} > 
-      {products.map(({id, title, image, price, category,description})=>( 
-        <div key={id} className={styles.card}>
+      {products.map(({_id, productName, productImg, productPrice, category,productDesc})=>( 
+        <div key={_id} className={styles.card}>
          <figure className={ styles.imageBox}>
-          <img src={image} alt={title}/>
+          <img src={productImg[0]?.url} alt={productName}/>  
          </figure>
          <div className={styles.content}>
           <h4 className={styles.category}>{category}</h4>
-          <h3 className={styles.title}>{title}</h3>
-          <p className={styles.price}><PriceFormate price={price}/></p>
-          <p className={styles.desc}>{description.slice(0,80)}...</p>
+          <h3 className={styles.title}>{productName}</h3>
+          <p className={styles.price}><PriceFormate price={productPrice}/></p>
+          <p className={styles.desc}>{productDesc.slice(0,80)}...</p>
            </div>
-           <NavLink to={`/products/${id}`} className={styles.link}>
+           <NavLink to={`/products/${_id}`} className={styles.link}>
             <button className={styles.btn}>Read More</button>
            </NavLink>
         </div>
