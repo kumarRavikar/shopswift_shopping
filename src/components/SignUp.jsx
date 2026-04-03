@@ -23,7 +23,7 @@ const SignUp = () => {
      e.preventDefault()
      setLoading(true)
      try {
-      const res = await axios.post("http://localhost:5000/api/user/register",formData)
+      const res = await axios.post("https://backend-shopswift-shopping.onrender.com/api/user/register",formData)
       if(res.data.success){
         showToast("User Registered Successful", "success")
          navigate('/verify')

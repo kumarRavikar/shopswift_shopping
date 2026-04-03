@@ -15,7 +15,7 @@ const Nav = () => {
   const {user} = useSelector((state)=>state.user)
      const logOutHandler = async()=>{
       try {
-         const res = await axios.post(`http://localhost:5000/api/user/logout`,{},{
+         const res = await axios.post(`https://backend-shopswift-shopping.onrender.com/api/user/logout`,{},{
           headers:{
             Authorization: `Bearer ${accessToken}`
           }

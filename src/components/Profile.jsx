@@ -52,7 +52,7 @@ export const Profile = () => {
         //image file from backend multer
         formData.append("file",file) 
        }
-       const res = await axios.put(`http://localhost:5000/api/user/update/${userId}`,formData,{
+       const res = await axios.put(`https://backend-shopswift-shopping.onrender.com/api/user/update/${userId}`,formData,{
         headers:{
           Authorization:`Bearer ${accessToken}`,
           "Content-Type":"multipart/form-data"

@@ -28,7 +28,7 @@ const Login = () => {
     e.preventDefault()
     setLoading(true)
     try {
-       const res = await axios.post("http://localhost:5000/api/user/login",formData)
+       const res = await axios.post("https://backend-shopswift-shopping.onrender.com/api/user/login",formData)
        if(res.data.success){
           navigate("/")
           dispatch(setUser(res.data.user))
