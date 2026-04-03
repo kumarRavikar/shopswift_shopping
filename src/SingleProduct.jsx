@@ -11,7 +11,7 @@ import Stars from "./components/Stars";
 import AddToCart from "./components/AddToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleProduct } from "./redux/productSlice";
-const SINGLE_API = "http://localhost:5000/api/products/singleproduct";
+const SINGLE_API = "https://backend-shopswift-shopping.onrender.com/api/products/singleproduct";
 
 export const SingleProduct = () => {
   const { _id } = useParams();

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const API = "http://localhost:5000/api/products/all_products";
+const API = "https://backend-shopswift-shopping.onrender.com/api/products/all_products";
 const enhanceProduct = (product) => {
   return {
     ...product,
