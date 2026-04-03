@@ -11,7 +11,14 @@ const Cart = () => {
   const { cart, total_amount, shipping_fee } = useSelector((state)=>state.addToCart);
   const dispatch = useDispatch()
   //const { user, isAuthenticated } = useAuth0();
-  if (cart.length === 0) {
+    useEffect(()=>{
+    localStorage.setItem('cartItems',JSON.stringify(cart))
+  },[cart])
+  useEffect(()=>{
+    dispatch(totalAmount())
+  },[dispatch, cart])
+
+  if (cart.length === 0 || null) {
     return (
       <div className={styles.emptyCart}>
         <h2>Your Cart is Empty</h2>
@@ -23,12 +30,7 @@ const Cart = () => {
       </div>
     );
   }
-  useEffect(()=>{
-    localStorage.setItem('cartItems',JSON.stringify(cart))
-  },[cart])
-  useEffect(()=>{
-    dispatch(totalAmount())
-  },[dispatch, cart])
+
 
   return (
     <>

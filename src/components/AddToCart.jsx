@@ -44,7 +44,7 @@ const AddToCart = ({ product }) => {
         <button
         className={styles.addToCartBtn}
         disabled={stock <= 0}
-        onClick={()=>dispatch(addToCart({id, colors:selectedColor,amount, product}))}
+        onClick={()=>dispatch(addToCart({id : product._id, colors:selectedColor,amount, product}))}
       >
         {stock > 0 ? "Add to Cart" : "Out of Stock"}
       </button>

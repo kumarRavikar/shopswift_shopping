@@ -4,7 +4,7 @@ const API = "http://localhost:5000/api/products/all_products";
 const enhanceProduct = (product) => {
   return {
     ...product,
-    stock: Math.floor(Math.random() * 10) + 1,
+    stock: product.stock || 10,
     rating: {
       rate: (Math.random() * (5 - 3) + 3).toFixed(1), // 3.0 to 5.0
       count: Math.floor(Math.random() * 200) + 1, // 1–200 reviews
@@ -23,11 +23,14 @@ const initialState = {
 };
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
-  async () => {
-    const res = await axios.get(API);
-    console.log("API DATA:", res.data);
-    return res.data.products.map(enhanceProduct);
-  },
+   async (_, thunkAPI) => {
+    try {
+      const res = await axios.get(API);
+      return res.data.products.map(enhanceProduct);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
 );
 export const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
@@ -50,9 +53,7 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.products = action.payload;
 
-        state.featuredProducts = action.payload.filter(
-          (item) => Number(item.productPrice) < 1000,
-        );
+        state.featuredProducts = action.payload
 
         state.isError = false;
       })

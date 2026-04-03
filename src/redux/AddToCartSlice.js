@@ -25,10 +25,11 @@ export const AddToCartSlice = createSlice({
         //actions
       addToCart:(state,action)=>{
         const {id, colors, amount, product} = action.payload
-         const existingItem = state.cart.find((item)=>item.id === item.id + id+colors);
+        const cartId = `${id}-${colors}`;
+         const existingItem = state.cart.find((item)=>item.id ===  cartId);
          if(existingItem){
             state.cart = state.cart.map((item)=>{
-                if(item.id === id + colors){
+                if(item.id === cartId){
                     let newAmount = item.amount + amount
                     if(newAmount >= item.max){
                         newAmount = item.max
@@ -39,13 +40,13 @@ export const AddToCartSlice = createSlice({
             })
          }else{
             const cartProduct ={
-               id : id + colors,
-               name: product.title,
+               id : cartId,
+               name: product.productName,
                colors,
                amount,
-               image:product.image,
-               price:product.price,
-               max : product.stock
+               image:product.productImg?.[0]?.url,
+               price:product.productPrice,
+               max : product.stock || 10
             };
             state.cart.push(cartProduct)
          }
@@ -54,7 +55,9 @@ export const AddToCartSlice = createSlice({
           state.cart = state.cart.filter((item)=>item.id !== action.payload)
       },
       clearCart:(state,action)=>{
-         state.cart = []
+         state.cart = [] 
+         state.total_amount = 0;
+         state.total_items = 0;
       },
       incQuantity:(state,action)=>{
          state.cart = state.cart.map((item)=>{
@@ -80,9 +83,9 @@ export const AddToCartSlice = createSlice({
       },
       totalAmount:(state, action)=>{
          const {total_amount, total_items} = state.cart.reduce(
-            (acc,itme)=>{
-               acc.total_items += itme.amount
-               acc.total_amount += itme.amount * itme.price
+            (acc,item)=>{
+               acc.total_items += item.amount
+               acc.total_amount += item.amount * item.price
                return acc
             },{
                total_amount:0,

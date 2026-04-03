@@ -20,7 +20,7 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     loadFilterProduct: (state, action) => {
-      const priceArr = action.payload.map((item) => item.productPrice);
+      const priceArr = action.payload.map((item) =>  Number(item.productPrice));
       const maxPrice = priceArr.length ? Math.max(...priceArr) : 0;
       const minPrice = priceArr.length ? Math.min(...priceArr) : 0;
       state.filter_product = [...action.payload];
