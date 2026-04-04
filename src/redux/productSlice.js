@@ -33,7 +33,7 @@ export const fetchProducts = createAsyncThunk(
     }
   }
 );
- console.log( "checking for all products",fetchProducts())
+
 export const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (url) => {

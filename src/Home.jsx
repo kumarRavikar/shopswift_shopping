@@ -19,6 +19,7 @@ export const Home = () => {
     dispatch(fetchProducts())
   }
   },[dispatch,products.length])
+   console.log( "checking for all products",fetchProducts)
   return(
     <>
     <HomePage pageDetails = {homePageDetails}/>
