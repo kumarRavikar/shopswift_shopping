@@ -3,7 +3,7 @@ import FilterSection from './components/FilterSection'
 import Sort from './components/Sort'
 import ProductList from './components/ProductList'
 import styles from "./styles/ProductNav.module.css"
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from './redux/productSlice'
 export const Products = () => {
   const dispatch = useDispatch()
