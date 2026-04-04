@@ -7,10 +7,11 @@ import { useDispatch } from 'react-redux'
 import { fetchProducts } from './redux/productSlice'
 export const Products = () => {
   const dispatch = useDispatch()
+  const { products } = useSelector((state) => state.product)
    useEffect(()=>{
        dispatch(fetchProducts())
-       
     },[dispatch])
+   console.log("products data", products);
   return (
     <div className={styles.container}>
       <aside className={styles.filter}>

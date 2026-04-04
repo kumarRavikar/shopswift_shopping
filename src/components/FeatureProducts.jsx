@@ -6,8 +6,6 @@ import {useSelector } from 'react-redux';
 
 const FeatureProducts = () => {
     const {isLoading,featuredProducts} = useSelector((state)=>state.product)
-     console.log("fetureProduct",featuredProducts);
-     
      if(isLoading){
         return <div className={styles.loading}> ...LOADING </div>
      }

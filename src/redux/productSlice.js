@@ -55,13 +55,13 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.products = action.payload;
 
-        state.featuredProducts = action.payload
+        state.featuredProducts = action.payload.slice(0,4)
 
         state.isError = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.error.message;
+        state.isError = action.payload;
       })
       //Single Products
       .addCase(fetchSingleProduct.pending, (state, action) => {
