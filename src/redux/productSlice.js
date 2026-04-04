@@ -27,13 +27,13 @@ export const fetchProducts = createAsyncThunk(
     try {
       const res = await axios.get(API);
       return res.data.products.map(enhanceProduct);
-       console.log(res.data.products);
        
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+ console.log( "checking for all products",fetchProducts())
 export const fetchSingleProduct = createAsyncThunk(
   "products/fetchSingleProduct",
   async (url) => {
